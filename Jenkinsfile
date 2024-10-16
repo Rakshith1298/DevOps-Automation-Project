@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     // Push the image to Docker Hub with credentials
-                    docker.withRegistry('https://hub.docker.com/repository/docker/rakshith98/rakshith-kops-project', registryCredential) {
+                    docker.withRegistry('https://hub.docker.com', registryCredential) {
                         app.push("${tag}")   // Push the Docker image with the specified tag (e.g., 'latest')
                     }
                 }
