@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "rakshith-kops"                      // DockerHub repository or username
+        registry = "rakshith98"                      // DockerHub repository or username
         registryCredential = "Docker-hub-Credentials"   // Jenkins credential for DockerHub
         imageName = "rakshith-kops"                     // The name for your Docker image
         tag = "latest"                                  // Tag for the Docker image, e.g., 'latest'
