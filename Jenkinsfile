@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image and tag it
-                    app = docker.build("${imageName}:${tag}")
+                    dockerImage = docker.build("${imageName}:${tag}")
                 }
             }
         }
