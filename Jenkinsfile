@@ -4,7 +4,7 @@ pipeline {
     environment {
         registry = "https://registry.hub.docker.com"
         registryCredential = "Docker-hub-Credentials"
-        imageName = ""
+        imageName = "latest"
     }
 
     stages {
