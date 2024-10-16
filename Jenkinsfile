@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         KUBECONFIG = "/var/lib/jenkins/kubeconfig"
-        AWS_DEFAULT_REGION = 'ap-southeast-1' // Update with your desired region
+        AWS_DEFAULT_REGION = 'ap-south-1' // Update with your desired region
         EKS_CLUSTER_NAME = 'rakshith-kops' // Name of your EKS cluster
         // KUBE_CONFIG = credentials('kubeconfig') // Jenkins credential for kubeconfig file
         DOCKER_IMAGE = 'rakshith98/kops:latest' // Docker image from Docker Hub
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-eks-credential']]) {
                     script {
-                        sh 'aws eks update-kubeconfig --name rakshith-kops --region ap-southeast-1'
+                        sh 'aws eks update-kubeconfig --name rakshith-kops --region ap-south-1'
                         sh 'kubectl apply -f deployment.yml'
                     }
                 }
