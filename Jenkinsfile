@@ -1,35 +1,26 @@
 pipeline {
     agent any
-
     environment {
-        registry = "rakshith98/rakshith-kops-project"                      // DockerHub repository or username
-        registryCredential = "Docker-hub-Credentials"   // Jenkins credential for DockerHub
-        imageName = "rakshith-kops"                     // The name for your Docker image
-        tag = "latest"                                  // Tag for the Docker image, e.g., 'latest'
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials') // Add your Docker Hub credentials in Jenkins
     }
-
     stages {
         stage('Checkout SCM') {
             steps {
-                checkout scm
+                git 'https://github.com/Rakshith1298/DevOps-Automation-Project.git'
             }
         }
-
-        stage('Building Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image and tag it
-                    app = docker.build("${imageName}:${tag}")
+                    docker.build('rakshith98/rakshith-kops-project')
                 }
             }
         }
-
-        stage('Push Image To Docker Hub') {
+        stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    // Push the image to Docker Hub with credentials
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        app.push("${tag}")   // Push the Docker image with the specified tag (e.g., 'latest')
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_HUB_CREDENTIALS) {
+                        docker.image('rakshith98/rakshith-kops-project').push('latest')
                     }
                 }
             }
