@@ -4,7 +4,8 @@ pipeline {
     environment {
         registry = "https://registry.hub.docker.com"
         registryCredential = "Docker-hub-Credentials"
-        imageName = "latest"
+        imageName = "rakshith-kops"
+        tag = "latest"
     }
 
     stages {
@@ -16,7 +17,7 @@ pipeline {
         stage('Building Docker Image') {
             steps {
                 script {
-                    def app = docker.build("${registry}/${imageName}")
+                    def app = docker.build("${registry}/${imageName}:${tag}")
                 }
             }
         }
