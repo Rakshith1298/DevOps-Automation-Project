@@ -1,21 +1,38 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
-      steps {
-        script {
-          docker.build('feedback-app')
+    #stage('Build') {
+    #  steps {
+    #    script {
+    #      docker.build('feedback-app')
+    #    }
+    #  }
+    #}
+    stage('Building Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build(registry + ":$BUILD_NUMBER")
+                }
+            }
         }
-      }
-    }
-    stage('Deploy') {
-      steps {
-        kubernetesDeploy(
-          kubeconfigId: 'kube-config-id',
-          configs: 'k8s/deployment.yml'
-        )
-      }
-    }
+        stage('Push Image To Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+    #stage('Deploy') {
+    #  steps {
+    #    kubernetesDeploy(
+    #      kubeconfigId: 'kube-config-id',
+    #      configs: 'k8s/deployment.yml'
+    #    )
+    #  }
+    #}
     stage('Version Control Check out') {
         steps {
             checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Rakshith1298/DevOps-Automation-Project']])
