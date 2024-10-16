@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials') // Add your Docker Hub credentials in Jenkins
+        DOCKER_HUB_CREDENTIALS = credentials('Docker-hub-Credentials') // Add your Docker Hub credentials in Jenkins
     }
     stages {
         stage('Checkout SCM') {
