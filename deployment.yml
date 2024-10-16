@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-name
+  name: kops-demo
   labels:
     app: demo-app
 spec:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: image-name
+        image: rakshith-kops
         ports:
         - containerPort: 8081
 ---
